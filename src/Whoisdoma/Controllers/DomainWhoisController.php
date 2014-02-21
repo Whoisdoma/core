@@ -4,6 +4,7 @@ namespace Whoisdoma\Controllers;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Whoisdoma\Models\WhoisServers;
 
 class DomainWhoisController extends BaseController 
 {
