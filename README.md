@@ -1,0 +1,4 @@
+core
+====
+
+The whoisdoma core
