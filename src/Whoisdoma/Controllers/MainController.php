@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\View;
 
 class MainController extends BaseController {
     
-    public function getIndex()
+    public function showIndex()
     {
-        return View::make('whoisdoma-api::index');
+        return View::make('whoisdoma::index');
     }
     
 }
