@@ -1,0 +1,23 @@
+{
+    "name": "whoisdoma/core",
+    "description": "the Whoisdoma api core",
+    "authors": [
+        {
+            "name": "XAOS Interactive",
+            "email": "info@xaos-ia.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Whoisdoma": "src"
+        }
+    },
+    "minimum-stability": "stable"
+}
