@@ -10,4 +10,10 @@ class WhoisServers extends Base
     * @var string
     */
     protected $table = 'whois_servers';
+    
+    
+    protected $fillable = array(
+        'tld',
+        'server',
+    );
 }

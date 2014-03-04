@@ -5,13 +5,40 @@ namespace Whoisdoma\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Whoisdoma\Models\WhoisServers;
+use Whoisdoma\Models\ApiKey;
 
 class DomainWhoisController extends BaseController 
-{
+{    
+    
     public function LookupDomain() {
 		
         //get domain from url
         $domain = Input::get('domain');
+        $apikey = Input::get('api_key');
+        
+        //see if we have an api key
+        if (!$apikey)
+        {
+            //no api key provided
+            return Response::json(array(
+                    'error' => true,
+                    'result' => 'No api key provided'
+		), 400);
+        } else {
+            
+            //check that api key is valid
+            $check_apikey = ApiKey::where('api_key', '=', $apikey)->count();
+            if($check_apikey == 0) {
+                
+                //api key provided is not valid
+                return Response::json(array(
+                    'error' => true,
+                    'result' => 'The api key provided could not be found, or is not valid.'
+		), 400);
+                
+            }
+            
+        }
 		
         //split domain into parts
         $domain_parts = explode(".", $domain);

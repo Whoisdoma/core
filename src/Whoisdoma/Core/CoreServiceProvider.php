@@ -21,7 +21,8 @@ class CoreServiceProvider extends ServiceProvider {
 	{
 		$this->package('whoisdoma/core', 'whoisdoma');
                 
-                 include __DIR__.'/../../routes.php';
+                include __DIR__.'/../../start.php';
+                include __DIR__.'/../../routes.php';
 	}
 
 	/**

@@ -1,9 +1,12 @@
 <?php
 
+namespace Whoisdoma\Migrations\Install;
+
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration {
+class WhoisServers extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +15,11 @@ class CreateUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function(Blueprint $table)
+		Schema::create('whois_servers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('email');
-                        $table->string('password');
+			$table->string('tld');
+			$table->string('server');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +31,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users');
+		Schema::drop('whois_servers');
 	}
 
 }

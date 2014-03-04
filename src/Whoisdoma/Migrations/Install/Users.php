@@ -1,9 +1,12 @@
 <?php
 
+namespace Whoisdoma\Migrations\Install;
+
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApiKeysTable extends Migration {
+class Users extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +15,12 @@ class CreateApiKeysTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('apikeys', function(Blueprint $table)
+		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('api_key');
+			$table->string('username');
+                        $table->string('email');
+                        $table->string('password');
 			$table->timestamps();
 		});
 	}
@@ -27,7 +32,7 @@ class CreateApiKeysTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('apikeys');
+		Schema::drop('users');
 	}
 
 }

@@ -14,6 +14,7 @@ class User extends Base implements UserInterface
     protected $table = 'users';
     
     protected $fillable = array(
+        'username',
         'email',
         'password',
     );
