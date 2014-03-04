@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWhoisServersTable extends Migration {
+class CreateUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateWhoisServersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('whois_servers', function(Blueprint $table)
+		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('tld');
-			$table->string('server');
+			$table->string('email');
+                        $table->string('password');
 			$table->timestamps();
 		});
 	}
@@ -28,7 +28,7 @@ class CreateWhoisServersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('whois_servers');
+		Schema::drop('users');
 	}
 
 }
