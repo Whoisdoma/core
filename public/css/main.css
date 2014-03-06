@@ -1,0 +1,13 @@
+body, html {
+    padding-bottom: 70px;
+}
+
+.addContentBox {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.loginBox {
+    width: 450px;
+    margin: 0 auto;
+}

@@ -7,8 +7,8 @@
 @if (Auth::check())
 <ul class="nav navbar-nav">
     <li><a href="{{ URL::route('admin_overview') }}">Overview</a></li>
-    <li><a href="{{ URL::route('admin_view_servers') }}">Servers</a></li>
-    <li class="active"><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
+    <li class="active"><a href="{{ URL::route('admin_view_servers') }}">Servers</a></li>
+    <li><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
     <li><a href="{{ URL::route('admin_view_apikeys') }}">Api Keys</a></li>
     <li><a href="{{ URL::route('admin_add_apikey') }}">Generate Api Key</a></li>
 </ul>
@@ -27,7 +27,7 @@
 @section('content')
 
 <form method="post" class="addContentBox" role="form">
-    <h2>Add Server</h2>
+    <h2>Edit Server</h2>
     
     <?php
     
@@ -57,13 +57,21 @@
     
     <div class="form-group">
         <label for="tld">TLD</label>
-        <input type="text" class="form-control" name="tld"  placeholder="TLD"/>
+        <input type="text" class="form-control" name="tld" value="{{ $server->tld }}"/>
     </div>
     <div class="form-group">
         <label for="server">Server</label>
-        <input type="text" class="form-control" name="server" placeholder="Server"/>
+        <input type="text" class="form-control" name="server" value="{{ $server->server }}"/>
     </div>
-    <input type="submit" class="btn btn-primary" value="Add Server"/>
+    <div class="form-group">
+        <label for="createdat">Created At</label>
+        <p class="form-control-static">{{ $server->created_at }}</p>
+    </div>
+    <div class="form-group">
+        <label for="updatedat">Updated At</label>
+        <p class="form-control-static">{{ $server->updated_at }}</p>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Update Server"/>
 </form>
 
 @stop

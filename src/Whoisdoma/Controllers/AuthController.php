@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController {
     
@@ -20,6 +21,24 @@ class AuthController extends BaseController {
             'username' => Input::get('username'),
             'password' => Input::get('pass'),
         );
+        
+        $rules = array(
+            'username' => 'required',
+            'password' => 'required',
+        );
+        
+        $errmsgs = array(
+            'username.required' => 'You must provide your administrator username.',
+            'password.required' => 'You must provide your password',
+        );
+        
+       $validator = Validator::make($user_info, $rules, $errmsgs);
+       
+       if ($validator->fails())
+       {
+           return Redirect::back()->withErrors($validator);
+       }
+                
         
         if (Auth::attempt($user_info))
         {

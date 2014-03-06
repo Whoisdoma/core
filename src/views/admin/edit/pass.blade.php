@@ -7,8 +7,8 @@
 @if (Auth::check())
 <ul class="nav navbar-nav">
     <li><a href="{{ URL::route('admin_overview') }}">Overview</a></li>
-    <li><a href="{{ URL::route('admin_view_servers') }}">Servers</a></li>
-    <li class="active"><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
+    <li class="active"><a href="{{ URL::route('admin_view_servers') }}">Servers</a></li>
+    <li><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
     <li><a href="{{ URL::route('admin_view_apikeys') }}">Api Keys</a></li>
     <li><a href="{{ URL::route('admin_add_apikey') }}">Generate Api Key</a></li>
 </ul>
@@ -27,7 +27,7 @@
 @section('content')
 
 <form method="post" class="addContentBox" role="form">
-    <h2>Add Server</h2>
+    <h2>Change Password</h2>
     
     <?php
     
@@ -56,14 +56,10 @@
     ?>
     
     <div class="form-group">
-        <label for="tld">TLD</label>
-        <input type="text" class="form-control" name="tld"  placeholder="TLD"/>
+        <label for="newpass">New Password</label>
+        <input type="password" class="form-control" name="newpass" placeholder="New Password"/>
     </div>
-    <div class="form-group">
-        <label for="server">Server</label>
-        <input type="text" class="form-control" name="server" placeholder="Server"/>
-    </div>
-    <input type="submit" class="btn btn-primary" value="Add Server"/>
+    <input type="submit" class="btn btn-primary" value="Update Password"/>
 </form>
 
 @stop

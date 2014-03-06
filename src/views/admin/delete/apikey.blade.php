@@ -8,8 +8,8 @@
 <ul class="nav navbar-nav">
     <li><a href="{{ URL::route('admin_overview') }}">Overview</a></li>
     <li><a href="{{ URL::route('admin_view_servers') }}">Servers</a></li>
-    <li class="active"><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
-    <li><a href="{{ URL::route('admin_view_apikeys') }}">Api Keys</a></li>
+    <li><a href="{{ URL::route('admin_add_server') }}">Add Server</a></li>
+    <li class="active"><a href="{{ URL::route('admin_view_apikeys') }}">Api Keys</a></li>
     <li><a href="{{ URL::route('admin_add_apikey') }}">Generate Api Key</a></li>
 </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -27,7 +27,7 @@
 @section('content')
 
 <form method="post" class="addContentBox" role="form">
-    <h2>Add Server</h2>
+    <h2>Delete Server</h2>
     
     <?php
     
@@ -48,22 +48,21 @@
         {
             $successMsg = Session::get('success');
             
-            echo "<div class='alert alert-success alert-dismissable'>
-            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>".
-            $successMsg ."</div>";
+            echo "<div class='alert alert-success'>". $successMsg ."</div>";
+        } 
+        else 
+        {
+            echo "<div class='alert alert-warning'>
+            <strong>Warning!</strong>
+            <p>You are about to delete the following api key,
+            this action can not be undone.<br/>". $apikey->api_key
+            ."</p></div>";
+            
         }
     
     ?>
-    
-    <div class="form-group">
-        <label for="tld">TLD</label>
-        <input type="text" class="form-control" name="tld"  placeholder="TLD"/>
-    </div>
-    <div class="form-group">
-        <label for="server">Server</label>
-        <input type="text" class="form-control" name="server" placeholder="Server"/>
-    </div>
-    <input type="submit" class="btn btn-primary" value="Add Server"/>
+     
+    <input type="submit" class="btn btn-danger" value="Delete Api Key"/>
 </form>
 
 @stop
