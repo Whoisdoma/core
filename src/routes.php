@@ -108,3 +108,27 @@ Route::group(array('prefix' => 'v1/domain', 'before' => 'whoisdoma_is_installed'
     ));
     
 });
+
+Route::group(array('prefix' => 'v1/dns', 'before' => 'whoisdoma_is_installed'), function() {
+   
+    Route::get('lookup', array(
+       'as' => 'dns_whois',
+       'uses' => 'Whoisdoma\Controllers\DNSWhoisController@LookupDNS'
+    ));
+    
+    Route::get('authns', array(
+       'as' => 'dns_authns',
+       'uses' => 'Whoisdoma\Controllers\DNSWhoisController@LookupAuthNS'
+    ));
+    
+    Route::get('soa', array(
+        'as' => 'dns_soarecord',
+        'uses' => 'Whoisdoma\Controllers\DNSWhoisController@LookupSOARecord'
+    ));
+    
+    Route::get('dnsall', array(
+        'as' => 'dns_allrecords',
+        'uses' => 'Whoisdoma\Controllers\DNSWhoisController@LookupAllDNS'
+    ));
+    
+});
