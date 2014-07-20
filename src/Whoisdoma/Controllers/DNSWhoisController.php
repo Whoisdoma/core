@@ -76,14 +76,25 @@ class DNSWhoisController extends BaseController
         else
         {
             //get auth ns datat
-            $authnsData = $this->getAuthNS($this->domain);
-        
+            $authnsData = json_encode($this->getAuthNS($this->domain));
+
+            $jsondata = json_decode($authnsData);
+
+            $nsinfo = array();
+
+            foreach ($jsondata as $nsdata)
+            {
+                $nsinfo[] = array(
+                  'nameserver' => $nsdata->nameserver,
+                  'ip' => $nsdata->ip,
+                  'location' => $nsdata->location
+                );
+            }
+
             return Response::json(array(
                 'error' => false,
                 'domain' => $this->domain,
-                'nameserver' => $authnsData['nameserver'],
-                'ip' => $authnsData['ip'],
-                'location' => $authnsData['location']
+                'nsdata' => $nsinfo,
             ), 200);
         }
         
@@ -151,18 +162,26 @@ class DNSWhoisController extends BaseController
         
         //get auth ns datat
         $authnsData = dns_get_record($domain, DNS_NS);
-        
+
+        $authns = array();
+
+        $jsondata = json_encode($authnsData);
+
+        $nsjson = json_decode($jsondata);
+
         //put the results into a nice array
-        foreach ($authnsData as $authnsInfo) 
+        foreach($nsjson as $nsdata)
         {
-            $authns = array(
-              'nameserver' => $authnsInfo['target'],
-              'ip' => $this->getnsIP($authnsInfo['target']),
-              'location' => $this->getipLocation($this->getnsIP($authnsInfo['target'])),
+            $authns[] = array(
+                'nameserver' => $nsdata->target,
+                'ip' => $this->getnsIP($nsdata->target),
+                'location' => $this->getipLocation($this->getnsIP($nsdata->target))
             );
-            
-            return $authns;
         }
+
+        return $authns;
+
+
     }
     
     function getnsIP($domain){
