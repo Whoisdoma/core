@@ -12,9 +12,14 @@ use Illuminate\Support\Facades\Hash;
 use Whoisdoma\Models\WhoisServers;
 use Whoisdoma\Models\ApiKey;
 use Whoisdoma\Models\User;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Request;
 
 class AdminController extends BaseController {
-    
+
+    public $success;
+    public $errors;
+
     public function get_overview()
     {
         return View::make('whoisdoma::admin.overview');
@@ -22,7 +27,7 @@ class AdminController extends BaseController {
     
     public function get_view_servers()
     {
-        return View::make('whoisdoma::admin.servers')->with('servers', WhoisServers::all());
+        return View::make('whoisdoma::admin.servers')->with('servers', WhoisServers::paginate(10));
     }
 
 
@@ -47,18 +52,38 @@ class AdminController extends BaseController {
 
         if ($validator->fails())
         {
-            return Redirect::back()->withErrors($validator);
+            if (Request::ajax())
+            {
+                $this->success = false;
+                $this->errors = $validator->getMessageBag()->toArray();
+
+                return Response::json(array('success' => $this->success, 'errors' => $this->errors));
+            }
+            else
+            {
+                return Redirect::back()->withErrors($validator);
+            }
         }
         
         $addServer = new WhoisServers(array(
             'tld' => Input::get('tld'),
             'server' => Input::get('server'),
         ));
-        
-        $addServer->save();
-        
-        return Redirect::back()->withSuccess('The whois server has been added successfully.');
-        
+
+        if ($addServer->save())
+        {
+            if (Request::ajax())
+            {
+                $this->success = true;
+
+                return Response::json(array('success' => $this->success, 'successMsg' => 'The whois server has been added successfully.'));
+            }
+            else
+            {
+                return Redirect::back()->withSuccess('The whois server has been added successfully.');
+            }
+        }
+
     }
     
     

@@ -57,5 +57,15 @@
         ?>
     </tbody>
 </table>
+<div class="row">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        {{ $servers->links() }}
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addServerModal" style="margin-top: 15px;">New Server</button>
+    </div>
+</div>
 
 @stop
+
+@include('whoisdoma::admin.modals.add-server')

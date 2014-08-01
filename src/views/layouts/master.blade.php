@@ -18,6 +18,7 @@
         <!-- begin js -->
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="{{ URL::asset('packages/whoisdoma/core/js/bootstrap.min.js') }}"></script>
+        <script src="{{ URL::asset('packages/whoisdoma/core/js/main.js') }}"></script>
         @yield('custom_js')
         <!-- end js -->
         
