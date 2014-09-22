@@ -24,7 +24,7 @@ class DNSWhoisController extends BaseController
        if(!$this->apikey)
        {
             $this->errmsg = 'No api key provided';
-           return false;
+            return false;
        } else {
 
            //check that api key is valid
@@ -43,7 +43,7 @@ class DNSWhoisController extends BaseController
         if (!$this->getUrlData())
         {
             return Response::json(array(
-                'error' => true,
+                'success' => false,
                 'result' => $this->errmsg
              ), 400);
         }
@@ -53,7 +53,7 @@ class DNSWhoisController extends BaseController
         
             //return a response in json
             return Response::json(array(
-                'error' => false,
+                'success' => true,
                 'domain' => $this->domain,
                 'ip_address' => $dn_ip,
                 'authns' => $this->getAuthNS($this->domain),
@@ -69,7 +69,7 @@ class DNSWhoisController extends BaseController
         if (!$this->getUrlData())
         {
             return Response::json(array(
-                'error' => true,
+                'success' => false,
                 'result' => $this->errmsg
             ), 400);
         }
@@ -92,7 +92,7 @@ class DNSWhoisController extends BaseController
             }
 
             return Response::json(array(
-                'error' => false,
+                'success' => true,
                 'domain' => $this->domain,
                 'nsdata' => $nsinfo,
             ), 200);
@@ -106,7 +106,7 @@ class DNSWhoisController extends BaseController
          if (!$this->getUrlData())
          {
              return Response::json(array(
-                 'error' => true,
+                 'success' => false,
                  'result' => $this->errmsg
              ), 400);
 
@@ -118,7 +118,7 @@ class DNSWhoisController extends BaseController
             $soaData = $this->getSOARecord($this->domain);
                 
             return Response::json(array(
-                'error' => false,
+                'success' => true,
                 'domain' => $this->domain,
                 'nameserver' => $soaData['nameserver'],
                 'email' => $soaData['email'],
@@ -138,7 +138,7 @@ class DNSWhoisController extends BaseController
          if (!$this->getUrlData())
          {
              return Response::json(array(
-                 'error' => true,
+                 'success' => false,
                  'result' => $this->errmsg
              ), 400);
          }
@@ -149,7 +149,7 @@ class DNSWhoisController extends BaseController
             $dnsData = $this->getallRecords($this->domain);
               
             return Response::json(array(
-                'error' => false,
+                'success' => true,
                 'domain' => $this->domain,
                 'records' => $dnsData,
             ), 200);

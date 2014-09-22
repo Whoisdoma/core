@@ -21,7 +21,7 @@ class DomainWhoisController extends BaseController
         {
             //no api key provided
             return Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'result' => 'No api key provided'
 		), 400);
         } else {
@@ -32,7 +32,7 @@ class DomainWhoisController extends BaseController
                 
                 //api key provided is not valid
                 return Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'result' => 'The api key provided could not be found, or is not valid.'
 		), 400);
                 
@@ -50,7 +50,7 @@ class DomainWhoisController extends BaseController
             
             //no server was found for the tld
             return Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'result' => 'No appropiate Whois server found for $domain domain!'
 		), 400);
 			
@@ -66,7 +66,7 @@ class DomainWhoisController extends BaseController
 	{
             //no response recieved from the whois server
             return Response::json(array(
-                    'error' => true,
+                    'success' => false,
                     'domain' => $domain,
                     'whois_server' => $whoisserver,
                     'result' => 'No results retrieved from $whoisserver for $domain domain!'
@@ -89,7 +89,7 @@ class DomainWhoisController extends BaseController
         
         //whois lookup was successful, return the results
 	return Response::json(array(
-            'error' => false,
+            'success' => true,
             'domain' => $domain,
             'whois_server' => $whoisserver,
             'result' => $result
@@ -98,27 +98,27 @@ class DomainWhoisController extends BaseController
 	}
 	
 	function QueryWhoisServer($whoisserver, $domain) {
-	$port = 43;
-	$timeout = 10;
-	$fp = @fsockopen($whoisserver, $port, $errno, $errstr, $timeout) or die("Socket Error " . $errno . " - " . $errstr);
-	//if($whoisserver == "whois.verisign-grs.com") $domain = "=".$domain; // whois.verisign-grs.com requires the equals sign ("=") or it returns any result containing the searched string.
-	fputs($fp, $domain . "\r\n");
-	$out = "";
-	while(!feof($fp)){
-		$out .= fgets($fp);
-	}
-	fclose($fp);
+	    $port = 43;
+	    $timeout = 10;
+	    $fp = @fsockopen($whoisserver, $port, $errno, $errstr, $timeout) or die("Socket Error " . $errno . " - " . $errstr);
+	    //if($whoisserver == "whois.verisign-grs.com") $domain = "=".$domain; // whois.verisign-grs.com requires the equals sign ("=") or it returns any result containing the searched string.
+	    fputs($fp, $domain . "\r\n");
+	    $out = "";
+	    while(!feof($fp)){
+		    $out .= fgets($fp);
+	    }
+	    fclose($fp);
 
-	$res = "";
-	if((strpos(strtolower($out), "error") === FALSE) && (strpos(strtolower($out), "not allocated") === FALSE)) {
-		$rows = explode("\n", $out);
-		foreach($rows as $row) {
-			$row = trim($row);
-			if(($row != '') && ($row{0} != '#') && ($row{0} != '%')) {
-				$res .= $row."\n";
-			}
-		}
-	}
-	return $res;
+	    $res = "";
+	    if((strpos(strtolower($out), "error") === FALSE) && (strpos(strtolower($out), "not allocated") === FALSE)) {
+		    $rows = explode("\n", $out);
+		    foreach($rows as $row) {
+			    $row = trim($row);
+			    if(($row != '') && ($row{0} != '#') && ($row{0} != '%')) {
+				    $res .= $row."\n";
+			    }
+		    }
+	    }
+	    return $res;
 	}
 }

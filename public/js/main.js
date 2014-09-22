@@ -35,4 +35,9 @@ $(document).ready(function(){
         });
     });
 
+    $('#addServerModal').on('hidden.bs.modal', function (e) {
+        //reload page
+        location.reload(true);
+    })
+
 });
