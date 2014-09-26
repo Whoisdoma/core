@@ -132,3 +132,17 @@ Route::group(array('prefix' => 'v1/dns', 'before' => 'whoisdoma_is_installed'), 
     ));
     
 });
+
+Route::group(array('prefix' => 'v1/ip-whois', 'before' => 'whoisdoma_is_installed'), function(){
+
+    Route::get('user-ip', array(
+        'as' => 'user_ip',
+        'uses' => 'Whoisdoma\Controllers\IPWhoisController@GetUserIP'
+    ));
+
+    Route::get('lookup', array(
+        'as' => 'ip_whois',
+        'uses' => 'Whoisdoma\Controllers\IPWhoisController@LookupIP'
+    ));
+
+});
